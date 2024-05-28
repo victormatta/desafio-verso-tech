@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:poke_verso/components/poke_details_widget.dart';
+// import 'package:poke_verso/model/poke_model.dart';
 
 class PokeDetailPage extends StatelessWidget {
   const PokeDetailPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    // final PokeModel specificPokemon =
+    //     ModalRoute.of(context)?.settings.arguments as PokeModel;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes do Pokémon'),
@@ -15,7 +20,7 @@ class PokeDetailPage extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
         ),
       ),
-      body: const SingleChildScrollView(),
+      body: const SingleChildScrollView(child: PokeDetailsWidget()),
     );
   }
 }
