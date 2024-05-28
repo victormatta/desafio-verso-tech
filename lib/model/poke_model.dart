@@ -24,8 +24,8 @@ class PokeModel with ChangeNotifier {
       id: json['id'],
       name: json['name'],
       imageUrl: json['sprites']['other']['home']['front_default'],
-      height: json['height'],
-      weight: json['weight'],
+      height: json['height'] / 10,
+      weight: json['weight'] / 10,
       types: (json['types'] as List)
           .map((typeInfo) => typeInfo['type']['name'] as String)
           .toList(),
