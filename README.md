@@ -1,16 +1,74 @@
-# poke_verso
+# PokeVerso
 
-A new Flutter project.
+PokeVerso é um aplicativo Flutter que consome a API da PokéAPI para exibir informações sobre diferentes Pokémon. Este aplicativo inclui funcionalidades como favoritar Pokémon e exibir detalhes individuais de cada Pokémon.
 
-## Getting Started
+## Funcionalidades
 
-This project is a starting point for a Flutter application.
+- Exibição de uma lista de Pokémon.
+- Exibição de detalhes individuais de cada Pokémon.
+- Favoritar e desfavoritar Pokémon.
+- Tratamento de erros e feedback ao usuário.
 
-A few resources to get you started if this is your first Flutter project:
+## Tecnologias Utilizadas
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- [Flutter](https://flutter.dev/)
+- [Provider](https://pub.dev/packages/provider) para gerenciamento de estado.
+- [CachedNetworkImage](https://pub.dev/packages/cached_network_image) para carregamento de imagens em cache.
+- [PokéAPI](https://pokeapi.co/) para dados dos Pokémon.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Como Executar o Projeto
+
+### Pré-requisitos
+
+- Flutter instalado na sua máquina. Você pode seguir o guia oficial de instalação do Flutter [aqui](https://flutter.dev/docs/get-started/install).
+- Acesso à internet para consumir a API da PokéAPI.
+
+### Passos para Execução
+
+1. **Clone o repositório**
+
+   ```sh
+   git clone https://github.com/seu-usuario/poke_verso.git
+   cd poke_verso
+
+2. **Instale as dependências**
+
+   ```sh
+   flutter pub get
+
+2. **Execute o aplicativo**
+
+   ```sh
+   flutter run
+
+## **Estrutura do Projeto**
+
+    poke_verso/
+    │
+    ├── lib/
+    │   ├── components/
+    │   │   └── poke_card.dart
+    │   │   └── poke_details_widget.dart
+    │   │   └── poke_grid_item.dart
+    │   ├── exceptions/
+    │   │   └── http_exception.dart
+    │   ├── model/
+    │   │   └── poke_model.dart
+    │   ├── utils/
+    │   │   └── routes.dart
+    │   ├── view-model/
+    │   │   └── poke_viewmodel.dart
+    │   ├── view/
+    │   │   └── poke_overview_page.dart
+    │   │   └── poke_detail_page.dart
+    │   └── main.dart
+    │
+    └── pubspec.yaml
+
+## Contribuição
+
+- Sinta-se à vontade para contribuir com este projeto. Você pode abrir uma issue ou enviar um pull request.
+
+## Licença
+
+- Este projeto está licenciado sob a Licença MIT. Veja o arquivo LICENSE para mais detalhes.
