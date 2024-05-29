@@ -5,9 +5,40 @@ import 'package:poke_verso/model/poke_model.dart';
 import 'package:http/http.dart' as http;
 
 class PokeViewModel extends ChangeNotifier {
+  final _url = 'https://pokeapi.co/api/v2/pokemon?limit=34';
   List<PokeModel> _pokemon = [];
+  bool _showFavoriteOnly = false;
 
-  List<PokeModel> get pokemon => [..._pokemon];
+  List<PokeModel> get pokemon {
+    if (_showFavoriteOnly) {
+      return _pokemon.where((pok) => pok.isFavorite!).toList();
+    } else {
+      return [..._pokemon];
+    }
+  }
+
+  void showFavoriteOnly() {
+    _showFavoriteOnly = true;
+    notifyListeners();
+  }
+
+  void showAll() {
+    _showFavoriteOnly = false;
+    notifyListeners();
+  }
+
+  void _toggleFavorite(PokeModel pokemon) {
+    pokemon.isFavorite = !pokemon.isFavorite!;
+    notifyListeners();
+  }
+
+  void toggleFavorite(PokeModel pokemon) {
+    final pokeIndex = _pokemon.indexWhere((pok) => pok.id == pokemon.id);
+
+    if (pokeIndex >= 0) {
+      _toggleFavorite(pokemon);
+    }
+  }
 
   int get itemsCount {
     return _pokemon.length;
@@ -15,8 +46,7 @@ class PokeViewModel extends ChangeNotifier {
 
   Future<void> getPokemon() async {
     try {
-      final response = await http
-          .get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=15'));
+      final response = await http.get(Uri.parse(_url));
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body)['results'] as List;
         final List<PokeModel> loadedPokemon = [];

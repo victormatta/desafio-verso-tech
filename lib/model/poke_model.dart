@@ -8,6 +8,7 @@ class PokeModel with ChangeNotifier {
   final double weight;
   final List<String> types;
   final List<String> abilities;
+  bool? isFavorite;
 
   PokeModel({
     required this.id,
@@ -17,6 +18,7 @@ class PokeModel with ChangeNotifier {
     required this.weight,
     required this.types,
     required this.abilities,
+    this.isFavorite = false,
   });
 
   factory PokeModel.fromJson(Map<String, dynamic> json) {
