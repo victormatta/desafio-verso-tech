@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:poke_verso/exceptions/http_exception.dart';
 import 'package:poke_verso/model/poke_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter/foundation.dart';
 
 class PokeViewModel extends ChangeNotifier {
-  final _url = 'https://pokeapi.co/api/v2/pokemon?limit=34';
+  final _url = 'https://pokeapi.co/api/v2/pokemon?limit=68';
   List<PokeModel> _pokemon = [];
   bool _showFavoriteOnly = false;
+  String? errorMessage;
 
   List<PokeModel> get pokemon {
     if (_showFavoriteOnly) {
@@ -57,17 +60,34 @@ class PokeViewModel extends ChangeNotifier {
             loadedPokemon
                 .add(PokeModel.fromJson(jsonDecode(pokemonDetails.body)));
           } else {
-            print(
-                'Erro ao obter dados dos Pokémon: ${pokemonDetails.statusCode}');
+            throw HttpException(
+              msg:
+                  'Erro ao obter dados dos Pokémon: ${pokemonDetails.statusCode}',
+              statusCode: pokemonDetails.statusCode,
+            );
           }
         }
         _pokemon = loadedPokemon;
+        errorMessage = null;
         notifyListeners();
       } else {
-        throw Exception('Falha ao carregar os Pokémon');
+        throw HttpException(
+          msg: 'Não foi possível carregar os Pokemon na tela',
+          statusCode: response.statusCode,
+        );
       }
     } catch (error) {
-      print(error);
+      errorMessage = error.toString();
+      notifyListeners();
+    }
+  }
+
+  void removeSinglePokemon(int id) {
+    final pokeIndex = _pokemon.indexWhere((pok) => pok.id == id);
+
+    if (pokeIndex >= 0) {
+      _pokemon[pokeIndex].isFavorite = false;
+      notifyListeners();
     }
   }
 }
