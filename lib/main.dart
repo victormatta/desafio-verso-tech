@@ -22,6 +22,7 @@ class PokeApp extends StatelessWidget {
           Routes.HOME: (context) => const PokeOverViewPage(),
           Routes.POKEMON_DETAIL: (context) => const PokeDetailPage(),
         },
+        debugShowCheckedModeBanner: false,
       ),
     );
   }

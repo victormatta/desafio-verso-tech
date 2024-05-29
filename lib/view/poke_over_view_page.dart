@@ -3,28 +3,49 @@ import 'package:poke_verso/components/poke_card.dart';
 import 'package:poke_verso/view-model/poke_viewmodel.dart';
 import 'package:provider/provider.dart';
 
+enum FilterType { Favorite, All }
+
 class PokeOverViewPage extends StatelessWidget {
   const PokeOverViewPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final provider = Provider.of<PokeViewModel>(context, listen: false);
+
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Pokedex',
+          style: TextStyle(
+            color: Colors.grey,
+            fontSize: 25,
+          ),
+        ),
+        actions: [
+          PopupMenuButton(
+            icon: const Icon(Icons.more_vert, color: Colors.grey),
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: FilterType.Favorite,
+                child: Text('Somente Favoritos'),
+              ),
+              const PopupMenuItem(
+                value: FilterType.All,
+                child: Text('Todos'),
+              )
+            ],
+            onSelected: (FilterType selectedValue) {
+              if (selectedValue == FilterType.Favorite) {
+                provider.showFavoriteOnly();
+              } else {
+                provider.showAll();
+              }
+            },
+          ),
+        ],
+      ),
       body: Column(
         children: [
-          const Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(25.0),
-                child: Text(
-                  'Pokedex',
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 25,
-                  ),
-                ),
-              ),
-            ],
-          ),
           Expanded(
             child: FutureBuilder(
               future: Provider.of<PokeViewModel>(context, listen: false)
