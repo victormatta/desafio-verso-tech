@@ -61,7 +61,21 @@ class PokeOverViewPage extends StatelessWidget {
                   );
                 } else {
                   return Consumer<PokeViewModel>(
-                    builder: (context, pokemon, child) => const PokeCard(),
+                    builder: (context, viewModel, child) {
+                      if (viewModel.errorMessage != null) {
+                        return const Center(
+                          child: Text('Erro no servidor. Tente recarregar'),
+                        );
+                      }
+
+                      if (viewModel.pokemon.isEmpty) {
+                        return const Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      }
+
+                      return const PokeCard();
+                    },
                   );
                 }
               },

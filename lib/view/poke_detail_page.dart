@@ -7,9 +7,6 @@ class PokeDetailPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final PokeModel specificPokemon =
-    //     ModalRoute.of(context)?.settings.arguments as PokeModel;
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detalhes do Pokémon'),
